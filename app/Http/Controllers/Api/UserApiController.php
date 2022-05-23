@@ -148,7 +148,9 @@ class UserApiController extends Controller
      */
     public function show($id): JsonResponse
     {
-       
+        if(!is_numeric($id)) {
+            return response()->json($this->apiMessageHelper->showUserValidFails()->getMessage(), 400);
+        }
 
         $user = new UserApiResource(User::find($id));
 

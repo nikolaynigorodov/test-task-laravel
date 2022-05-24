@@ -16,9 +16,11 @@ class TokenRepository
         return Token::where('token', $token)->where('finish', '>', $date)->get();
     }
 
-    public function removeToken(string $token)
+    public function removeToken(string $token): void
     {
         $token = Token::where('token', $token);
-        $token->delete();
+        if($token) {
+            $token->delete();
+        }
     }
 }

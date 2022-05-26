@@ -73,12 +73,12 @@ class UserApiController extends Controller
         }
 
         if(!$request->get('offset')) {
-            $users = UserApiResource::collection(User::paginate($request->get('count')));
+            $users = UserApiResource::collection(User::orderBy('id', 'desc')->paginate($request->get('count')));
         } else {
             $request->request->remove('page');
             $this->offsetCheck = true;
             $users = UserApiResource::collection(
-                User::offset($request->get('offset'))->limit($request->get('count'))->get()
+                User::orderBy('id', 'desc')->offset($request->get('offset'))->limit($request->get('count'))->get()
             );
         }
 
